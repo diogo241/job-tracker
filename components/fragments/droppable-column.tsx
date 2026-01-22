@@ -15,6 +15,8 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import { deleteColumn } from '@/lib/actions/columns';
+import { toast } from 'sonner';
 
 interface ColConfig {
   color: string;
@@ -42,6 +44,20 @@ const DroppableColumn = ({
   const sortedJobs =
     column.jobApplications.sort((a, b) => a.order - b.order) || [];
 
+  const handleDeleteColumn = async () => {
+    try {
+      const result = await deleteColumn(column._id);
+
+      if (result.success) {
+        toast.success(result.message);
+      } else {
+        toast.error(result.error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Card className="min-w-[300px] flex-shrink-0 shadow-md p-0">
       <CardHeader
@@ -66,7 +82,7 @@ const DroppableColumn = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem className="text-destructive">
+              <DropdownMenuItem className="text-destructive" onClick={handleDeleteColumn}>
                 <Trash2 className="mr-2 h-4 w-4" />
                 Delete Column
               </DropdownMenuItem>
