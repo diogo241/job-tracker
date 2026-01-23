@@ -41,7 +41,7 @@ const SignUpPage = () => {
         email,
         password,
       });
-      console.log(result);
+
 
       if (result.error) {
         setError(

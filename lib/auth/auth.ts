@@ -4,9 +4,12 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { initUserBoard } from '../helpers/init-user-board';
 import connectDB from '../db';
+import { MongoClient } from 'mongodb';
 
 const mongooseInstance = await connectDB();
+// console.log(mongooseInstance.connection);
 const client = mongooseInstance!.connection.getClient();
+// const client = new MongoClient(process.env.MONGODB_URI!);
 const db = client.db();
 
 export const auth = betterAuth({

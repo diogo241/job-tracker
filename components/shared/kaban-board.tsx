@@ -60,7 +60,6 @@ const KabanBoard = ({ board, userId }: KanbanBoardProps) => {
   const { columns, moveJob } = useBoard(board);
 
   const sortedColumns = columns?.sort((a, b) => a.order - b.order) || [];
-  console.log(sortedColumns);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -176,6 +175,7 @@ const KabanBoard = ({ board, userId }: KanbanBoardProps) => {
 
   return (
     <DndContext
+      sensors={sensors}
       collisionDetection={closestCorners}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
